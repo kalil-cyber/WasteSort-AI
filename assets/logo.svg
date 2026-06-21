@@ -1,0 +1,30 @@
+<svg width="240" height="240" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="14" y="14" width="212" height="212" rx="48" fill="#FFFFFF"/>
+  <rect x="14" y="14" width="212" height="212" rx="48" stroke="#E6F2EA" stroke-width="4"/>
+
+  <path d="M82 82H151C157.627 82 163 87.3726 163 94V161C163 171.493 154.493 180 144 180H89C78.5066 180 70 171.493 70 161V94C70 87.3726 75.3726 82 82 82Z" fill="#0F5132"/>
+  <path d="M93 72C93 65.3726 98.3726 60 105 60H139C145.627 60 151 65.3726 151 72V82H140V74C140 71.7909 138.209 70 136 70H108C105.791 70 104 71.7909 104 74V82H93V72Z" fill="#0F5132"/>
+  <path d="M66 95H167" stroke="#0F5132" stroke-width="11" stroke-linecap="round"/>
+
+  <path d="M103.5 126.2L115.4 105.6C118.1 101 124.9 101 127.6 105.6L134.5 117.5" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M132.4 107.9L134.5 117.5L124.9 119.6" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M139.6 133.5L151.5 154.1C154.1 158.7 150.8 164.5 145.5 164.5H131.8" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M142.1 169.9L131.8 164.5L137.2 154.2" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M111.1 164.5H88.5C83.2 164.5 79.9 158.7 82.5 154.1L90.1 140.9" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M79.8 145.3L90.1 140.9L94.5 151.2" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <path d="M49 145C56 123 70 107 91 96C86 119 75 140 54 154C50 151 48.7 148.2 49 145Z" fill="#74B84A"/>
+  <path d="M60 153C70 134 83 119 100 108" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round"/>
+
+  <path d="M55 168C74 194 111 204 144 190C160 183 173 171 181 156" stroke="#74B84A" stroke-width="12" stroke-linecap="round"/>
+  <path d="M181 156L183 176" stroke="#74B84A" stroke-width="12" stroke-linecap="round"/>
+  <path d="M181 156L163 164" stroke="#74B84A" stroke-width="12" stroke-linecap="round"/>
+
+  <rect x="153" y="95" width="55" height="55" rx="14" fill="#FFFFFF" stroke="#344054" stroke-width="7"/>
+  <circle cx="180.5" cy="122.5" r="15.5" fill="#344054"/>
+  <circle cx="180.5" cy="122.5" r="8" fill="#98D46A"/>
+  <circle cx="185" cy="117" r="3.5" fill="#FFFFFF"/>
+
+  <rect x="163" y="170" width="47" height="31" rx="10" fill="#0F5132"/>
+  <text x="186.5" y="192" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" fill="#FFFFFF">WS</text>
+</svg>
