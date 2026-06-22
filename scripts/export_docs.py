@@ -24,6 +24,14 @@ ROOT = Path(__file__).resolve().parent.parent
 EXPORTS = ROOT / "exports"
 LOGO = ROOT / "assets" / "logo.svg"
 REPORT = ROOT / "report.md"
+GENERATED_ASSETS = ROOT / "assets"
+VISUALS = {
+    0: GENERATED_ASSETS / "wastesort-slide-hero.png",
+    4: GENERATED_ASSETS / "wastesort-slide-categories.png",
+    6: GENERATED_ASSETS / "wastesort-slide-ai-model.png",
+    7: GENERATED_ASSETS / "wastesort-slide-ai-model.png",
+    8: GENERATED_ASSETS / "wastesort-slide-hero.png",
+}
 
 
 SLIDES = [
@@ -218,6 +226,14 @@ def add_ppt_logo(slide, left, top, size):
     p.font.color.rgb = RGBColor(15, 81, 50)
 
 
+def add_visual(slide, visual_path: Path, left, top, width):
+    if visual_path.exists():
+        picture = slide.shapes.add_picture(str(visual_path), left, top, width=width)
+        picture.line.color.rgb = RGBColor(226, 232, 240)
+        return picture
+    return None
+
+
 def build_pptx():
     prs = Presentation()
     prs.slide_width = Inches(13.333)
@@ -230,14 +246,14 @@ def build_pptx():
         background.fore_color.rgb = RGBColor(248, 250, 252)
 
         if index == 0:
-            title_box = slide.shapes.add_textbox(Inches(0.9), Inches(1.1), Inches(7.2), Inches(1.0))
+            title_box = slide.shapes.add_textbox(Inches(0.75), Inches(0.85), Inches(5.9), Inches(1.0))
             p = title_box.text_frame.paragraphs[0]
             p.text = title
             p.font.bold = True
             p.font.size = Pt(46)
             p.font.color.rgb = RGBColor(15, 81, 50)
 
-            subtitle_box = slide.shapes.add_textbox(Inches(0.95), Inches(2.25), Inches(7.4), Inches(2.1))
+            subtitle_box = slide.shapes.add_textbox(Inches(0.8), Inches(1.95), Inches(5.7), Inches(2.2))
             tf = subtitle_box.text_frame
             for i, item in enumerate(bullets):
                 para = tf.paragraphs[0] if i == 0 else tf.add_paragraph()
@@ -246,10 +262,17 @@ def build_pptx():
                 para.font.color.rgb = RGBColor(51, 65, 85)
                 para.space_after = Pt(10)
 
-            add_ppt_logo(slide, Inches(9.0), Inches(1.25), Inches(2.45))
+            visual = VISUALS.get(index)
+            if visual and visual.exists():
+                add_visual(slide, visual, Inches(6.55), Inches(0.65), Inches(6.0))
+            else:
+                add_ppt_logo(slide, Inches(9.0), Inches(1.25), Inches(2.45))
         else:
             add_title(slide, title)
-            content = slide.shapes.add_textbox(Inches(1.0), Inches(1.45), Inches(11.0), Inches(4.9))
+            visual = VISUALS.get(index)
+            has_visual = visual is not None and visual.exists()
+            content_width = Inches(5.45) if has_visual else Inches(11.0)
+            content = slide.shapes.add_textbox(Inches(1.0), Inches(1.45), content_width, Inches(4.9))
             tf = content.text_frame
             tf.word_wrap = True
             for i, item in enumerate(bullets):
@@ -261,9 +284,12 @@ def build_pptx():
                 para.space_after = Pt(12)
                 para.text = f"• {item}"
 
+            if has_visual:
+                add_visual(slide, visual, Inches(6.85), Inches(1.45), Inches(5.45))
+
         add_footer(slide)
 
-    output = EXPORTS / "WasteSort_AI_Presentation.pptx"
+    output = EXPORTS / "WasteSort_AI_Presentation_Images.pptx"
     prs.save(output)
     return output
 
