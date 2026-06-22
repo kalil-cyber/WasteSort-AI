@@ -1,5 +1,17 @@
 # Présentation Complète - WasteSort AI
 
+## Informations De Présentation
+
+**Titre du projet :** WasteSort AI  
+**Nom de l'étudiant :** ......  
+**Nom de la prof :** ......  
+**Classe / formation :** ......  
+**Établissement :** ......  
+**Année scolaire :** ......  
+**Sujet :** Reconnaissance automatique des déchets avec Deep Learning
+
+**Logo école :** EMSI
+
 ## 1. Plan De Présentation Orale 5 À 7 Minutes
 
 ### 1. Introduction
@@ -226,7 +238,19 @@ Contenu :
 - Réutilisé grâce au Transfer Learning ;
 - Plus performant qu'un CNN simple.
 
-### Slide 10 - Interface Utilisateur
+### Slide 10 - Comparaison Des Modèles
+
+Titre : **Pourquoi Ne Pas Utiliser MLP, RNN Ou Seq2Seq ?**
+
+Contenu :
+
+- MLP : possible, mais trop simple pour comprendre les formes d'une image ;
+- CNN : adapté aux images, bonne première solution ;
+- RNN : adapté aux séquences, pas idéal pour une image fixe ;
+- Seq2Seq : adapté à la traduction ou génération de texte, pas à cette classification ;
+- MobileNetV2 : meilleur choix ici grâce au Transfer Learning.
+
+### Slide 11 - Interface Utilisateur
 
 Titre : **Application Web**
 
@@ -243,7 +267,7 @@ Conseil visuel :
 
 Ajouter une capture d'écran de l'application.
 
-### Slide 11 - Résultats
+### Slide 12 - Résultats
 
 Titre : **Résultats**
 
@@ -254,7 +278,7 @@ Contenu :
 - Bonnes performances sur carton, verre et métal ;
 - Classes plus difficiles : plastique, papier, trash.
 
-### Slide 12 - Limites
+### Slide 13 - Limites
 
 Titre : **Limites**
 
@@ -266,7 +290,7 @@ Contenu :
 - Certaines classes se ressemblent ;
 - Le modèle n'est pas fiable à 100 %.
 
-### Slide 13 - Améliorations Possibles
+### Slide 14 - Améliorations Possibles
 
 Titre : **Améliorations**
 
@@ -278,7 +302,7 @@ Contenu :
 - Ajouter une classe "objet inconnu" ;
 - Créer une version mobile.
 
-### Slide 14 - Conclusion
+### Slide 15 - Conclusion
 
 Titre : **Conclusion**
 
@@ -315,6 +339,18 @@ L'objectif est de créer une application capable de reconnaître un déchet à p
 ### Pourquoi utiliser MobileNetV2 ?
 
 MobileNetV2 est léger, rapide et adapté à la reconnaissance d'images. Il donne de meilleurs résultats qu'un CNN simple, surtout grâce au Transfer Learning.
+
+### Pourquoi ne pas utiliser un MLP ?
+
+Un MLP peut fonctionner sur des pixels transformés en vecteur, mais il ne comprend pas bien la structure d'une image. Il perd les relations spatiales entre les pixels, donc il est moins adapté à la reconnaissance visuelle.
+
+### Pourquoi ne pas utiliser un RNN ?
+
+Un RNN est surtout utilisé pour des données séquentielles comme du texte, de l'audio ou des séries temporelles. Pour une image fixe de déchet, un CNN ou MobileNetV2 est plus adapté.
+
+### Pourquoi ne pas utiliser Seq2Seq ?
+
+Seq2Seq est utilisé quand l'entrée et la sortie sont des séquences, par exemple en traduction automatique. Ici, la sortie est simplement une classe parmi six catégories, donc Seq2Seq n'est pas nécessaire.
 
 ### C'est quoi le Transfer Learning ?
 

@@ -1,40 +1,85 @@
-# Rapport Professionnel - WasteSort AI
+# Rapport Professionnel - WasteSort AI Suite
+
+## Page De Garde
+
+**Titre du projet :** WasteSort AI Suite  
+**Sujet :** Plateforme IA multi-modèles pour le tri et l'écologie  
+**Nom de l'étudiant :** ......  
+**Nom de la prof :** ......  
+**Classe / formation :** ......  
+**Établissement :** EMSI / ......  
+**Année scolaire :** ......  
+**Technologies principales :** Python, TensorFlow/Keras, Streamlit, MobileNetV2, MLP, LSTM, Seq2Seq
+
+![Logo EMSI](assets/emsi-logo-official.png)
 
 ## 1. Introduction
 
-Le tri des déchets est un enjeu important pour la protection de l'environnement. Dans la vie quotidienne, il n'est pas toujours évident de savoir si un objet doit être placé dans la catégorie du carton, du verre, du métal, du papier, du plastique ou dans les déchets non recyclables. Une mauvaise classification peut réduire l'efficacité du recyclage et compliquer le travail de traitement des déchets.
+Le projet **WasteSort AI Suite** est une plateforme intelligente qui regroupe plusieurs modèles d'intelligence artificielle autour d'un même thème : l'écologie et la gestion intelligente d'un campus.
 
-Avec les progrès de l'intelligence artificielle, il devient possible d'utiliser la reconnaissance d'images pour aider à identifier automatiquement certains objets. Le projet **WasteSort AI** s'inscrit dans cette logique. Il s'agit d'une application web capable d'analyser une photo de déchet et de proposer une catégorie de tri.
+La première version du projet était centrée sur la reconnaissance automatique des déchets à partir d'une image. Cette version a ensuite été étendue pour devenir une plateforme plus complète, capable de démontrer plusieurs familles de modèles : **CNN/MobileNetV2**, **MLP**, **RNN/LSTM** et **Seq2Seq**.
 
-Le projet combine plusieurs éléments : un modèle de Deep Learning, une interface web simple, un système de confiance, et une présentation visuelle adaptée à un public non technique. L'objectif n'est pas de remplacer totalement le jugement humain, mais de proposer une aide claire et rapide à la décision.
+L'objectif est de montrer qu'un même projet peut intégrer plusieurs types de données :
 
-![Illustration générale de WasteSort AI](assets/wastesort-slide-hero.png)
+- des images ;
+- des données tabulaires ;
+- des séries temporelles ;
+- du texte ou des questions utilisateur.
 
-**Figure 1 :** exemple d'utilisation de WasteSort AI. L'utilisateur prend une photo d'un déchet, puis l'application propose une catégorie de tri.
+Cette approche rend le projet plus riche et plus intéressant à présenter, car chaque module correspond à un usage concret de l'intelligence artificielle.
+
+![Capture de l'application WasteSort AI Suite](assets/report-app-capture.png)
+
+**Figure 1 :** capture représentative de l'interface. L'application regroupe plusieurs modules dans une interface Streamlit simple à utiliser.
 
 ## 2. Problématique
 
-La problématique principale du projet est la suivante :
+La problématique générale du projet est la suivante :
 
-**Comment utiliser le Deep Learning pour reconnaître automatiquement le type de déchet à partir d'une image et aider l'utilisateur à mieux trier ?**
+**Comment regrouper plusieurs modèles d'intelligence artificielle dans une seule plateforme afin d'aider un campus à mieux gérer le tri, l'énergie, le score écologique et les questions des utilisateurs ?**
 
-Cette problématique repose sur plusieurs difficultés. Les déchets peuvent avoir des formes, couleurs et textures très différentes. À l'inverse, certaines catégories peuvent se ressembler : par exemple, un emballage plastique peut ressembler à du papier selon la photo, et certains déchets non recyclables peuvent être visuellement proches d'objets recyclables.
+Cette problématique se divise en plusieurs sous-problèmes :
 
-Il faut donc créer un système capable d'apprendre à partir d'images, mais aussi capable d'indiquer quand il n'est pas assez sûr de sa réponse.
+- reconnaître automatiquement un déchet à partir d'une image ;
+- calculer un score écologique à partir de données simples ;
+- prévoir une consommation énergétique à partir d'un historique ;
+- répondre aux questions des utilisateurs sur le tri ;
+- rendre tous ces modules accessibles dans une interface web.
 
 ## 3. Objectifs Du Projet
 
-Le projet WasteSort AI a plusieurs objectifs :
+Les objectifs principaux sont :
 
-- classifier une image de déchet parmi six catégories ;
-- proposer une interface simple utilisable par un public non technique ;
-- afficher un pourcentage de confiance pour chaque prédiction ;
-- afficher les probabilités par classe ;
-- ajouter un statut de fiabilité pour éviter de valider une prédiction trop incertaine ;
-- utiliser un modèle moderne de reconnaissance d'images basé sur le Transfer Learning ;
-- produire un projet présentable dans un cadre académique ou professionnel.
+- créer une plateforme web claire et facile à utiliser ;
+- intégrer plusieurs modèles d'IA dans un même projet ;
+- expliquer le rôle de chaque modèle ;
+- garder le module de reconnaissance de déchets basé sur MobileNetV2 ;
+- ajouter un module MLP pour un score écologique ;
+- ajouter un module RNN/LSTM pour une prévision énergétique ;
+- ajouter un assistant de tri basé sur une logique Seq2Seq/FAQ ;
+- produire un rapport et une présentation adaptés à un jury.
 
-Les six classes reconnues par le système sont :
+## 4. Vue D'Ensemble De La Plateforme
+
+WasteSort AI Suite est organisée en cinq parties :
+
+| Module | Type de modèle | Type de données | Rôle |
+| --- | --- | --- | --- |
+| Reconnaissance des déchets | CNN / MobileNetV2 | Image | Identifier le type de déchet |
+| Score écologique | MLP | Données tabulaires | Calculer un score sur 100 |
+| Prévision énergie | RNN / LSTM | Série temporelle | Prévoir une consommation future |
+| Assistant de tri | Seq2Seq / FAQ | Texte | Répondre aux questions |
+| Dashboard Streamlit | Interface web | Tous types | Regrouper les modules |
+
+![Diagramme de fonctionnement](assets/report-diagram-pipeline.png)
+
+**Figure 2 :** fonctionnement général : l'utilisateur interagit avec l'interface, puis le module adapté traite la donnée envoyée.
+
+## 5. Module Image - CNN Et MobileNetV2
+
+Le module de reconnaissance des déchets est le cœur historique du projet WasteSort AI. Il permet à l'utilisateur d'envoyer une photo ou de prendre une image avec la caméra. Le modèle analyse ensuite l'image et propose une catégorie de tri.
+
+Les classes reconnues sont :
 
 | Classe anglaise | Label français |
 | --- | --- |
@@ -45,234 +90,158 @@ Les six classes reconnues par le système sont :
 | plastic | Plastique |
 | trash | Déchet non recyclable |
 
-## 4. Dataset
-
-Le projet utilise le dataset **Garbage Classification**, disponible sur Kaggle. Ce dataset contient des images de déchets réparties en plusieurs dossiers, chaque dossier correspondant à une classe.
-
-La structure attendue du dataset est la suivante :
-
-```text
-data/garbage/
-├── cardboard/
-├── glass/
-├── metal/
-├── paper/
-├── plastic/
-└── trash/
-```
-
-Dans le projet, le dataset a été utilisé pour l'entraînement et la validation du modèle. Une partie des images est utilisée pour apprendre au modèle à reconnaître les catégories, et une autre partie est utilisée pour mesurer sa performance sur des images qu'il n'a pas directement vues pendant l'entraînement.
-
-Le dataset est adapté à un projet de démonstration, mais il reste limité par rapport à une utilisation réelle. Dans la réalité, les photos peuvent être prises avec des angles différents, des fonds complexes, une mauvaise lumière ou plusieurs objets visibles en même temps.
-
 ![Catégories de déchets reconnues](assets/wastesort-slide-categories.png)
 
-**Figure 2 :** représentation visuelle des six catégories reconnues par le système : carton, verre, métal, papier, plastique et déchet non recyclable.
+**Figure 3 :** catégories principales reconnues par le modèle de classification d'images.
 
-## 5. Prétraitement Des Images
+### Pourquoi CNN ?
 
-Avant d'être données au modèle, les images doivent être préparées. Le prétraitement permet de rendre toutes les images compatibles avec l'architecture du modèle.
+Un CNN est adapté aux images parce qu'il conserve la structure spatiale des pixels. Il détecte progressivement des formes simples, puis des formes plus complexes.
 
-Pour le modèle MobileNetV2, les images sont redimensionnées en **224 x 224 pixels**. Un prétraitement spécifique à MobileNetV2 est ensuite appliqué afin de respecter le format attendu par le modèle.
+### Pourquoi MobileNetV2 ?
 
-Une data augmentation est également utilisée pendant l'entraînement. Elle permet de créer artificiellement de légères variations des images pour rendre le modèle plus robuste.
+MobileNetV2 est un CNN pré-entraîné. Grâce au **Transfer Learning**, il permet d'obtenir de meilleurs résultats qu'un CNN simple avec moins de données et moins de temps d'entraînement.
 
-Les transformations utilisées incluent :
+![Architecture détaillée du modèle](assets/report-diagram-architecture.png)
 
-- rotation légère ;
-- zoom ;
-- déplacement horizontal ;
-- déplacement vertical ;
-- retournement horizontal ;
-- variation de luminosité ;
-- variation de contraste.
+**Figure 4 :** architecture simplifiée du modèle MobileNetV2 utilisé pour la classification des déchets.
 
-L'objectif est de faire apprendre au modèle que le même objet peut apparaître sous plusieurs formes selon la photo.
+## 6. Module MLP - Score Écologique
 
-## 6. Méthodologie
+Le module MLP illustre l'utilisation d'un réseau de neurones sur des données tabulaires.
 
-La méthodologie du projet se déroule en plusieurs étapes.
+Les entrées utilisées sont :
 
-Tout d'abord, les images sont organisées par classes dans le dossier du dataset. Ensuite, les générateurs d'images créent automatiquement les lots d'entraînement et de validation. Les images sont prétraitées et augmentées pour améliorer la généralisation du modèle.
+- nombre de déchets correctement triés ;
+- consommation électrique ;
+- consommation d'eau ;
+- participation aux actions écologiques ;
+- score de transport durable.
 
-Le premier modèle testé était un CNN simple, composé de couches de convolution, de pooling, de couches denses et d'une couche finale Softmax. Ce modèle a permis de valider le pipeline, mais sa fiabilité était limitée sur des photos réelles.
+La sortie du module est un **score écologique sur 100**, accompagné d'un label :
 
-Pour améliorer les performances, le projet utilise ensuite une approche de **Transfer Learning** avec **MobileNetV2**. Cette méthode consiste à réutiliser un modèle déjà entraîné sur un grand nombre d'images, puis à l'adapter au problème spécifique du tri des déchets.
+- Excellent ;
+- Bon ;
+- Moyen ;
+- À améliorer.
 
-Cette approche est plus performante qu'un CNN simple, car MobileNetV2 possède déjà une bonne capacité à reconnaître des formes, textures et objets visuels.
+Dans une version complète, ce module pourrait être entraîné sur un vrai dataset d'étudiants, de bâtiments ou de comportements écologiques. Dans cette version, il fonctionne comme un prototype explicable, utile pour présenter le principe d'un MLP.
 
-### Diagramme De Fonctionnement
+## 7. Module RNN / LSTM - Prévision Énergie
 
-```text
-Photo utilisateur
-       ↓
-Prétraitement de l'image
-       ↓
-MobileNetV2
-       ↓
-Calcul des probabilités
-       ↓
-Classe prédite + confiance
-       ↓
-Statut de fiabilité
-```
+Le module RNN/LSTM montre comment traiter des données séquentielles.
 
-Ce diagramme résume le fonctionnement général de l'application. L'image envoyée par l'utilisateur est d'abord préparée, puis analysée par le modèle. Le système calcule ensuite les probabilités pour chaque classe et affiche un résultat compréhensible.
+Une consommation d'énergie est une série temporelle : chaque valeur dépend souvent des jours précédents. Un LSTM est donc plus adapté qu'un MLP pour ce type de problème, car il peut apprendre une évolution dans le temps.
 
-## 7. Architecture Du Modèle
-
-Le modèle principal utilisé dans WasteSort AI est **MobileNetV2**.
-
-MobileNetV2 est une architecture de réseau de neurones convolutionnel conçue pour être légère et rapide. Elle est particulièrement adaptée aux applications web ou mobiles, car elle offre un bon compromis entre performance et rapidité.
-
-Dans ce projet, MobileNetV2 est utilisé sans sa couche de classification originale. Une nouvelle tête de classification est ajoutée pour reconnaître les six catégories du projet.
-
-L'architecture générale est la suivante :
-
-1. Image d'entrée en 224 x 224 pixels.
-2. Extraction des caractéristiques visuelles avec MobileNetV2.
-3. Couche `GlobalAveragePooling2D`.
-4. Couche dense avec activation ReLU.
-5. Couche Dropout pour limiter le surapprentissage.
-6. Couche finale Softmax avec six sorties.
-
-La couche Softmax produit une probabilité pour chaque classe. La classe avec la probabilité la plus élevée devient la prédiction proposée par l'application.
-
-![Schéma du modèle IA](assets/wastesort-slide-ai-model.png)
-
-**Figure 3 :** représentation simplifiée du modèle : une image entre dans le réseau de neurones, puis le modèle produit une prédiction parmi les classes disponibles.
-
-### Schéma Simplifié De L'Architecture
-
-| Étape | Rôle |
-| --- | --- |
-| Image 224 x 224 | Format d'entrée du modèle |
-| MobileNetV2 | Extraction des caractéristiques visuelles |
-| GlobalAveragePooling2D | Réduction des cartes de caractéristiques |
-| Dense + ReLU | Apprentissage des relations entre caractéristiques |
-| Dropout | Réduction du surapprentissage |
-| Softmax | Probabilités finales par classe |
-
-## 8. Entraînement
-
-L'entraînement est réalisé avec TensorFlow et Keras.
-
-Le modèle utilise :
-
-- optimiseur : Adam ;
-- fonction de perte : categorical crossentropy ;
-- métrique principale : accuracy ;
-- arrêt anticipé : EarlyStopping ;
-- réduction automatique du taux d'apprentissage : ReduceLROnPlateau.
-
-L'entraînement se fait en deux phases.
-
-Dans la première phase, la base MobileNetV2 est gelée. Seules les nouvelles couches ajoutées à la fin du modèle sont entraînées. Cela permet au modèle d'apprendre rapidement à associer les caractéristiques visuelles aux classes de déchets.
-
-Dans la deuxième phase, certaines dernières couches de MobileNetV2 sont dégelées pour réaliser un fine-tuning. Cette étape permet d'adapter plus finement le modèle au dataset des déchets.
-
-### Diagramme D'Entraînement
+Le module prend un historique de consommation, par exemple :
 
 ```text
-Dataset Kaggle
-       ↓
-Séparation entraînement / validation
-       ↓
-Data augmentation
-       ↓
-Phase 1 : entraînement de la tête du modèle
-       ↓
-Phase 2 : fine-tuning de MobileNetV2
-       ↓
-Évaluation finale
+120, 128, 125, 132, 140, 137, 145
 ```
 
-Cette organisation permet d'abord d'apprendre rapidement les nouvelles classes, puis d'ajuster progressivement une partie du modèle pré-entraîné pour améliorer les résultats.
+Il produit ensuite une prévision pour les prochains jours.
 
-## 9. Interface Utilisateur
+![Diagramme d'entraînement](assets/report-diagram-training.png)
 
-L'application web est développée avec **Streamlit**. Elle a été pensée pour être simple et claire.
+**Figure 5 :** logique générale d'entraînement et d'évaluation d'un modèle dans le projet.
 
-L'utilisateur peut :
+## 8. Module Seq2Seq - Assistant De Tri
 
-- importer une image depuis son ordinateur ;
-- prendre une photo avec la caméra ;
-- lancer automatiquement l'analyse ;
-- consulter la catégorie proposée ;
-- voir le pourcentage de confiance ;
-- voir les probabilités pour chaque classe ;
-- obtenir un statut de fiabilité.
+Le module Seq2Seq représente la partie texte du projet.
 
-Les statuts de fiabilité sont :
+Un modèle Seq2Seq est généralement utilisé lorsque l'entrée et la sortie sont des séquences, par exemple :
 
-- **Très fiable** ;
-- **Fiable** ;
-- **À vérifier** ;
-- **Incertain**.
+- traduction automatique ;
+- résumé de texte ;
+- chatbot ;
+- génération de réponses.
 
-Ce système permet d'éviter de présenter une prédiction comme certaine lorsque le modèle hésite. Si la confiance ou l'écart avec la deuxième classe est faible, l'application indique que la photo doit être vérifiée.
+Dans WasteSort AI Suite, le module agit comme un assistant de tri. L'utilisateur peut poser une question comme :
 
-### Parcours Utilisateur
+```text
+Où jeter une bouteille plastique ?
+```
 
-| Étape | Action utilisateur | Réponse de l'application |
+L'assistant répond avec une explication simple. Dans la version actuelle, le module utilise une base FAQ fiable pour la démonstration. Une version avancée pourrait utiliser un vrai modèle Seq2Seq entraîné.
+
+## 9. Comparaison Des Modèles
+
+Chaque modèle du projet correspond à un type de donnée différent.
+
+| Modèle | Données adaptées | Exemple dans le projet |
 | --- | --- | --- |
-| 1 | Importer ou prendre une photo | L'image est affichée dans l'interface |
-| 2 | Attendre l'analyse | Le modèle calcule les probabilités |
-| 3 | Lire le résultat | La classe proposée et la confiance sont affichées |
-| 4 | Vérifier le statut | L'application indique si le résultat est fiable |
+| MLP | Tableaux, valeurs numériques | Score écologique |
+| CNN | Images | Classification des déchets |
+| MobileNetV2 | Images avec Transfer Learning | Reconnaissance plus fiable |
+| RNN / LSTM | Séries temporelles | Prévision énergie |
+| Seq2Seq | Texte, séquences | Assistant de tri |
 
-## 10. Résultats
+![Comparaison des modèles](assets/report-model-comparison.png)
 
-Le modèle MobileNetV2 atteint environ **81,5 % d'accuracy en validation**.
+**Figure 6 :** comparaison visuelle des modèles étudiés dans WasteSort AI Suite.
 
-Ce résultat est satisfaisant pour un projet de démonstration. Il montre que le modèle est capable de reconnaître plusieurs catégories de déchets avec une précision correcte.
+Le projet montre donc que le choix du modèle dépend du type de donnée. Pour les images, MobileNetV2 est le meilleur choix. Pour les données tabulaires, un MLP est plus adapté. Pour les séries temporelles, on utilise plutôt un LSTM. Pour le texte et les questions, une logique Seq2Seq est plus pertinente.
 
-Les classes comme le carton, le verre et le métal sont généralement mieux reconnues. Les classes plus difficiles sont le plastique, le papier et les déchets non recyclables. Ces classes peuvent se ressembler selon la forme, la couleur ou la qualité de l'image.
+## 10. Interface Utilisateur
 
-Le projet inclut également un mécanisme de prédiction renforcée. Au lieu d'analyser une seule version de l'image, l'application peut analyser plusieurs variantes légères de la même image, puis moyenner les résultats. Cela rend la prédiction plus stable face aux variations de cadrage et de luminosité.
+L'interface est développée avec **Streamlit**. Elle regroupe tous les modules dans une navigation simple :
 
-### Synthèse Des Résultats
+- Accueil ;
+- Déchets - CNN/MobileNetV2 ;
+- Score écologique - MLP ;
+- Prévision énergie - LSTM ;
+- Assistant tri - Seq2Seq ;
+- Comparaison des modèles.
 
-| Élément évalué | Résultat |
-| --- | --- |
-| Modèle principal | MobileNetV2 |
-| Méthode | Transfer Learning + fine-tuning |
-| Accuracy validation | Environ 81,5 % |
-| Classes généralement plus stables | Carton, verre, métal |
-| Classes plus difficiles | Plastique, papier, trash |
-| Sécurité ajoutée | Statut de fiabilité et prédiction renforcée |
+L'objectif de cette interface est de permettre à un public non technique de tester les différents modules sans écrire de code.
 
-## 11. Limites
+## 11. Résultats
 
-Le projet présente plusieurs limites.
+Le module image basé sur MobileNetV2 atteint environ **81,5 % d'accuracy en validation**. Ce résultat est satisfaisant pour une démonstration académique.
 
-Premièrement, la qualité de la photo influence fortement le résultat. Une image floue, sombre, mal cadrée ou contenant plusieurs déchets peut réduire la fiabilité.
+Les autres modules sont des prototypes fonctionnels :
 
-Deuxièmement, certaines classes sont naturellement ambiguës. Par exemple, un emballage plastique blanc peut ressembler à du papier. De même, certains déchets non recyclables peuvent avoir une apparence proche du plastique ou du métal.
+- le module MLP produit un score écologique cohérent ;
+- le module LSTM simule une prévision à partir d'un historique ;
+- le module Seq2Seq/FAQ répond à des questions simples sur le tri.
 
-Troisièmement, le dataset utilisé reste limité. Pour une application professionnelle, il faudrait entraîner le modèle sur davantage d'images réelles, prises dans des environnements variés.
+![Graphique de synthèse des résultats](assets/report-results-summary.png)
 
-Enfin, le modèle ne connaît que les six catégories prévues. Si l'utilisateur envoie une image qui ne correspond pas vraiment à un déchet, le modèle essaiera tout de même de la classer dans l'une des catégories connues.
+**Figure 7 :** synthèse visuelle des résultats du module de reconnaissance des déchets.
 
-## 12. Améliorations Possibles
+## 12. Limites
+
+Le projet a plusieurs limites :
+
+- les modules MLP, LSTM et Seq2Seq sont des prototypes de démonstration ;
+- ils ne remplacent pas encore des modèles entraînés sur de grands datasets ;
+- le module image dépend fortement de la qualité de la photo ;
+- certaines classes de déchets se ressemblent visuellement ;
+- le modèle ne reconnaît que les classes prévues.
+
+Ces limites sont importantes à présenter, car elles montrent que le projet reste réaliste et que les résultats doivent être interprétés avec prudence.
+
+## 13. Améliorations Possibles
 
 Plusieurs améliorations peuvent être envisagées :
 
-- ajouter plus d'images au dataset ;
-- collecter des photos prises dans des conditions réelles ;
-- améliorer les classes difficiles comme plastique, papier et trash ;
-- tester d'autres modèles comme EfficientNet ;
+- entraîner un vrai MLP sur un dataset de comportements écologiques ;
+- entraîner un vrai LSTM sur des données réelles de consommation ;
+- créer un vrai chatbot Seq2Seq ou Transformer ;
 - ajouter une classe "objet inconnu" ;
+- ajouter plus d'images réelles pour la reconnaissance des déchets ;
 - créer une application mobile ;
-- améliorer l'expérience utilisateur avec des conseils personnalisés ;
-- ajouter une base de règles de tri selon les consignes locales.
+- connecter la plateforme à une base de données.
 
-Une amélioration importante serait d'entraîner le modèle sur des images prises directement avec un téléphone, car c'est le cas d'usage le plus proche de l'application réelle.
+## 14. Conclusion
 
-## 13. Conclusion
+WasteSort AI Suite est une plateforme complète qui regroupe plusieurs modèles d'intelligence artificielle dans un même projet.
 
-WasteSort AI est un projet de Deep Learning appliqué à un problème concret : l'aide au tri des déchets. Il combine reconnaissance d'images, Transfer Learning, interface web et indicateur de fiabilité.
+Le projet montre la différence entre plusieurs familles de modèles :
 
-Le projet montre comment l'intelligence artificielle peut être utilisée pour créer un outil simple et utile. Même si le modèle n'est pas parfait, il permet de démontrer une démarche complète : préparation des données, entraînement du modèle, évaluation, création d'une interface et prise en compte des limites.
+- MLP pour les données tabulaires ;
+- CNN/MobileNetV2 pour les images ;
+- RNN/LSTM pour les séries temporelles ;
+- Seq2Seq pour les textes et les questions.
 
-WasteSort AI constitue donc un projet pertinent pour un portfolio, une présentation académique ou une démonstration d'intelligence artificielle appliquée à l'environnement.
+Cette évolution rend le projet plus complet, plus pédagogique et plus intéressant à présenter devant un jury. Il ne s'agit plus seulement d'une application de classification de déchets, mais d'une plateforme IA multi-modèles autour de l'écologie et du campus intelligent.

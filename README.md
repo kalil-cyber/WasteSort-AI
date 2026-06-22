@@ -1,165 +1,131 @@
-# WasteSort AI - Plateforme Deep Learning
+# EcoSmart Campus AI
 
-Plateforme web de classification automatique des déchets recyclables avec Deep Learning.
+Plateforme IA multi-modèles pour un campus durable.
 
-Le projet est pensé pour une présentation publique, un portfolio étudiant, un CV
-ou une démonstration école. L'interface Streamlit permet d'envoyer une photo,
-d'obtenir une prédiction et d'expliquer simplement le résultat au public.
+Le projet étend WasteSort AI en une application complète qui regroupe plusieurs familles de modèles :
+
+- **CNN / MobileNetV2** pour reconnaître les déchets à partir d'une image ;
+- **MLP** pour calculer un score écologique à partir de données tabulaires ;
+- **RNN / LSTM** pour prévoir une consommation d'énergie ;
+- **Seq2Seq / FAQ** pour répondre aux questions des utilisateurs ;
+- **Streamlit** pour regrouper tous les modules dans une interface web.
 
 ## Objectif
 
-Créer un modèle CNN capable de classifier une image de déchet en 6 catégories :
+L'objectif est de montrer comment plusieurs modèles d'intelligence artificielle peuvent être utilisés dans une même plateforme.
 
-| Classe | Label FR |
-|--------|----------|
-| cardboard | Carton |
-| glass | Verre |
-| metal | Métal |
-| paper | Papier |
-| plastic | Plastique |
-| trash | Déchet non recyclable |
+EcoSmart Campus AI permet de :
 
-Projet conçu pour un **portfolio étudiant**, un CV, une présentation école ou une candidature en entreprise.
+- classifier un déchet par image ;
+- calculer un score écologique ;
+- prévoir une consommation énergétique ;
+- répondre aux questions de tri ;
+- comparer les modèles MLP, CNN, RNN/LSTM, Seq2Seq et MobileNetV2.
 
-## Démonstration publique
+## Lancement
 
 ```bash
 streamlit run app/streamlit_app.py
 ```
 
-La plateforme contient :
-
-- une page de démonstration simple pour le public ;
-- un upload image et une prise de photo via caméra ;
-- une prédiction avec confiance et probabilités par classe ;
-- un statut `Fiable`, `À vérifier` ou `Incertain` ;
-- une explication pédagogique du modèle MobileNetV2 ;
-- une explication claire du fonctionnement.
-
-## Structure du projet
+Puis ouvrir :
 
 ```text
-WasteSort-AI/
-├── app/
-│   └── streamlit_app.py      # Plateforme web de présentation
-├── data/
-│   └── garbage/              # Dataset (à télécharger)
-├── images/                   # Courbes d'entraînement
-├── models/                   # Modèles entraînés
-├── notebook/
-│   └── wastesort_ai.ipynb    # Version Google Colab
-├── scripts/
-│   └── download_dataset.py   # Téléchargement Kaggle
-│   └── smoke_test_predictions.py
-├── src/
-│   ├── config.py             # Configuration centralisée
-│   ├── preprocessing.py      # Data augmentation
-│   ├── model.py              # CNN simple
-│   ├── model_transfer.py     # MobileNetV2
-│   ├── train.py              # Entraînement CNN
-│   ├── train_transfer.py     # Entraînement Transfer Learning
-│   ├── predict.py            # Inférence CLI
-│   ├── inference.py          # Inférence partagée
-│   └── webcam_predict.py     # Webcam temps réel
-├── tests/
-│   └── test_model.py         # Tests unitaires
-├── requirements.txt
-└── README.md
+http://localhost:8501
 ```
 
-## Installation
+## Modules
 
-```bash
-pip install -r requirements.txt
-```
+### 1. Déchets - CNN / MobileNetV2
 
-## Dataset
+Ce module reprend WasteSort AI. L'utilisateur envoie une image et le modèle prédit une catégorie :
 
-Dataset recommandé : [Garbage Classification (Kaggle)](https://www.kaggle.com/datasets/asdasdasasdas/garbage-classification)
+- carton ;
+- verre ;
+- métal ;
+- papier ;
+- plastique ;
+- déchet non recyclable.
 
-**Téléchargement automatique** (nécessite l'API Kaggle configurée) :
+Le modèle utilisé par défaut est MobileNetV2 avec Transfer Learning.
 
-```bash
-pip install kaggle
-python scripts/download_dataset.py
-```
+### 2. Score écologique - MLP
 
-**Téléchargement manuel** : extrayez les images dans `data/garbage/` avec les sous-dossiers `cardboard`, `glass`, `metal`, `paper`, `plastic`, `trash`.
+Ce module illustre un MLP appliqué à des données tabulaires.
 
-## Entraînement
+Entrées :
 
-**CNN simple :**
+- nombre de déchets triés ;
+- consommation électrique ;
+- consommation d'eau ;
+- participation aux actions écologiques ;
+- transport durable.
 
-```bash
-python src/train.py
-```
+Sortie :
 
-**Transfer Learning (MobileNetV2, recommandé) :**
+- score écologique sur 100 ;
+- label : Excellent, Bon, Moyen, À améliorer.
 
-```bash
-python src/train_transfer.py
-```
+### 3. Prévision énergie - RNN / LSTM
 
-Les modèles et courbes sont sauvegardés dans `models/` et `images/`.
+Ce module utilise un historique de consommation pour prévoir les prochains jours.
 
-## Prédiction
+Une version complète utiliserait un LSTM entraîné sur une série temporelle. La version actuelle est un prototype explicable qui reproduit la logique de prévision.
 
-**Ligne de commande :**
+### 4. Assistant tri - Seq2Seq / FAQ
 
-```bash
-python src/predict.py --image chemin/vers/image.jpg
-python src/predict.py --image chemin/vers/image.jpg --no-show --save resultat.png
-```
+Ce module répond aux questions des utilisateurs sur le tri et l'énergie.
 
-**Application Streamlit :**
-
-```bash
-streamlit run app/streamlit_app.py
-```
-
-Le modèle utilisé par défaut est `MobileNetV2 (Transfer Learning)`, plus fiable
-pour les photos réelles que le CNN simple.
-
-**Webcam temps réel (OpenCV) :**
-
-```bash
-python src/webcam_predict.py
-```
-
-Appuyez sur `q` pour quitter.
-
-## Tests
-
-```bash
-pip install pytest
-pytest tests/ -v
-```
-
-Smoke test sur une image par classe :
-
-```bash
-python scripts/smoke_test_predictions.py
-```
+Une version avancée utiliserait un modèle Seq2Seq entraîné. La version actuelle utilise une base FAQ fiable pour la démonstration.
 
 ## Technologies
 
-- Python 3.9+
+- Python
 - TensorFlow / Keras
 - MobileNetV2
 - Streamlit
-- OpenCV
+- NumPy
 - Scikit-learn
+- Pillow
 - Matplotlib
 
-## Ligne CV
+## Structure
 
-**FR :** Développement d'un modèle CNN et Transfer Learning (MobileNetV2) avec TensorFlow/Keras pour classifier automatiquement des déchets recyclables, incluant une application Streamlit, une webcam temps réel, data augmentation et évaluation multi-classes.
+```text
+EcoSmart-Campus-AI/
+├── app/
+│   └── streamlit_app.py
+├── data/
+│   ├── garbage/
+│   ├── eco_scores.csv
+│   ├── energy_consumption.csv
+│   └── chatbot_faq.csv
+├── src/
+│   ├── campus_ai.py
+│   ├── inference.py
+│   ├── model.py
+│   ├── model_transfer.py
+│   ├── train.py
+│   └── train_transfer.py
+├── assets/
+├── exports/
+├── tests/
+└── README.md
+```
 
-**EN :** Built CNN and Transfer Learning (MobileNetV2) models with TensorFlow/Keras to classify recyclable waste images, including a Streamlit web app, real-time webcam inference, data augmentation and multi-class evaluation.
+## Résultat
 
-## Perspectives
+La plateforme montre plusieurs types d'IA dans un seul projet :
 
-- [x] Transfer Learning MobileNetV2
-- [x] Application Streamlit
-- [x] Webcam temps réel OpenCV
-- [ ] Fine-tuning EfficientNet
+| Modèle | Type de données | Module |
+| --- | --- | --- |
+| MLP | Données tabulaires | Score écologique |
+| CNN / MobileNetV2 | Images | Reconnaissance des déchets |
+| RNN / LSTM | Séries temporelles | Prévision énergie |
+| Seq2Seq | Texte / séquences | Assistant de tri |
+
+## Limites
+
+Les modules MLP, LSTM et Seq2Seq sont des prototypes de démonstration. Ils montrent la logique de chaque modèle, mais ils peuvent être remplacés plus tard par des modèles entraînés sur de vrais datasets.
+
+La partie image reste le module le plus avancé du projet grâce au modèle MobileNetV2 entraîné sur le dataset Garbage Classification.

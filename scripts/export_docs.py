@@ -1,6 +1,6 @@
 """
 export_docs.py
-Génère les livrables PPTX et PDF pour WasteSort AI.
+Génère les livrables PPTX et PDF pour WasteSort AI Suite.
 """
 
 from pathlib import Path
@@ -32,8 +32,16 @@ from reportlab.platypus import (
 ROOT = Path(__file__).resolve().parent.parent
 EXPORTS = ROOT / "exports"
 LOGO = ROOT / "assets" / "logo.svg"
+EMSI_LOGO = ROOT / "assets" / "emsi-logo-official.png"
 REPORT = ROOT / "report.md"
 GENERATED_ASSETS = ROOT / "assets"
+PROJECT_INFO = {
+    "Nom de l'étudiant": "......",
+    "Nom de la prof": "......",
+    "Classe / formation": "......",
+    "Établissement": "EMSI / ......",
+    "Année scolaire": "......",
+}
 VISUALS = {
     0: GENERATED_ASSETS / "wastesort-slide-hero.png",
     4: GENERATED_ASSETS / "wastesort-slide-categories.png",
@@ -45,46 +53,48 @@ VISUALS = {
 
 SLIDES = [
     (
-        "WasteSort AI",
+        "WasteSort AI Suite",
         [
-            "Reconnaissance automatique des déchets avec Deep Learning",
-            "Application web simple pour aider au tri",
-            "TensorFlow / Keras - MobileNetV2 - Streamlit",
+            "Plateforme IA multi-modèles pour le tri et l'écologie",
+            "MLP - CNN/MobileNetV2 - LSTM - Seq2Seq",
+            "Application web Streamlit",
+            "Étudiant : ......",
+            "Prof : ......",
         ],
     ),
     (
         "Pourquoi ce projet ?",
         [
-            "Le tri des déchets est important pour le recyclage.",
-            "Les utilisateurs peuvent se tromper entre plusieurs catégories.",
-            "Une image peut aider à proposer rapidement une catégorie de tri.",
+            "Montrer plusieurs familles de modèles IA dans un seul projet.",
+            "Aider un campus à gérer le tri, l'énergie et les questions utilisateurs.",
+            "Rendre l'IA compréhensible avec une interface simple.",
         ],
     ),
     (
         "Problématique",
         [
-            "Comment reconnaître automatiquement un déchet à partir d'une photo ?",
-            "Comment donner une réponse utile sans être trop sûr quand le modèle hésite ?",
+            "Comment regrouper plusieurs modèles IA dans une seule plateforme ?",
+            "Comment traiter images, tableaux, séries temporelles et texte ?",
         ],
     ),
     (
         "Objectifs",
         [
-            "Identifier le type de déchet à partir d'une image.",
-            "Classer l'image en six catégories.",
-            "Afficher une confiance et des probabilités.",
-            "Créer une interface simple pour un public non technique.",
+            "Reconnaître les déchets par image.",
+            "Calculer un score écologique.",
+            "Prévoir une consommation énergétique.",
+            "Répondre aux questions sur le tri.",
+            "Comparer MLP, CNN, LSTM et Seq2Seq.",
         ],
     ),
     (
-        "Catégories Reconnues",
+        "Modules De La Plateforme",
         [
-            "Carton",
-            "Verre",
-            "Métal",
-            "Papier",
-            "Plastique",
-            "Déchet non recyclable",
+            "Déchets : CNN / MobileNetV2",
+            "Score écologique : MLP",
+            "Prévision énergie : RNN / LSTM",
+            "Assistant tri : Seq2Seq / FAQ",
+            "Dashboard : Streamlit",
         ],
     ),
     (
@@ -93,6 +103,7 @@ SLIDES = [
             "Python",
             "TensorFlow / Keras",
             "MobileNetV2 en Transfer Learning",
+            "MLP, RNN/LSTM et Seq2Seq",
             "Streamlit",
             "Scikit-learn, Matplotlib et Pillow",
             "Dataset Kaggle Garbage Classification",
@@ -101,67 +112,76 @@ SLIDES = [
     (
         "Méthodologie",
         [
-            "Organisation du dataset par classes.",
-            "Prétraitement des images en 224 x 224 pixels.",
-            "Data augmentation pour améliorer la robustesse.",
-            "Entraînement MobileNetV2 puis fine-tuning.",
-            "Évaluation avec accuracy et matrice de confusion.",
+            "Module image : MobileNetV2 pour les déchets.",
+            "Module MLP : score écologique sur données tabulaires.",
+            "Module LSTM : prévision sur séries temporelles.",
+            "Module Seq2Seq : assistant de tri.",
+            "Intégration dans une interface Streamlit.",
         ],
     ),
     (
-        "Pourquoi MobileNetV2 ?",
+        "Module Image",
         [
-            "Modèle léger et rapide.",
-            "Adapté à la reconnaissance d'images.",
-            "Déjà entraîné sur beaucoup d'images.",
-            "Plus fiable qu'un CNN simple sur les photos réelles.",
+            "Reconnaît les déchets à partir d'une photo.",
+            "Utilise MobileNetV2 avec Transfer Learning.",
+            "Affiche confiance, probabilités et statut de fiabilité.",
+            "Accuracy validation : environ 81,5 %.",
+        ],
+    ),
+    (
+        "Comparaison Des Modèles",
+        [
+            "MLP : score écologique à partir de données tabulaires.",
+            "CNN / MobileNetV2 : classification d'images.",
+            "RNN / LSTM : prévision d'une série temporelle.",
+            "Seq2Seq : assistant de questions/réponses.",
+            "Chaque modèle correspond à un type de donnée.",
         ],
     ),
     (
         "Interface Utilisateur",
         [
-            "Import d'image ou prise de photo.",
-            "Affichage de la catégorie proposée.",
-            "Pourcentage de confiance.",
-            "Probabilités par classe.",
-            "Statut : Très fiable, Fiable, À vérifier ou Incertain.",
+            "Navigation entre les modules.",
+            "Test image, score, prévision et chatbot.",
+            "Résultats affichés simplement.",
+            "Interface adaptée à une démonstration publique.",
         ],
     ),
     (
         "Résultats",
         [
-            "Modèle principal : MobileNetV2.",
-            "Accuracy validation : environ 81,5 %.",
-            "Bonnes performances sur carton, verre et métal.",
-            "Classes plus difficiles : plastique, papier et trash.",
+            "MobileNetV2 : environ 81,5 % en validation.",
+            "MLP : score écologique explicable.",
+            "LSTM : prévision basée sur l'historique.",
+            "Seq2Seq/FAQ : réponses simples sur le tri.",
         ],
     ),
     (
         "Limites",
         [
-            "Le modèle dépend de la qualité de la photo.",
-            "Une image floue ou mal cadrée peut provoquer une erreur.",
-            "Certaines classes se ressemblent visuellement.",
-            "Le modèle ne remplace pas totalement une vérification humaine.",
+            "Les modules MLP, LSTM et Seq2Seq sont des prototypes.",
+            "Le modèle image dépend de la qualité de la photo.",
+            "Certaines classes de déchets se ressemblent.",
+            "Des datasets réels amélioreraient la plateforme.",
         ],
     ),
     (
         "Améliorations Possibles",
         [
-            "Ajouter plus d'images réelles.",
-            "Tester EfficientNet.",
-            "Ajouter une classe objet inconnu.",
-            "Créer une version mobile.",
-            "Adapter les conseils de tri selon les règles locales.",
+            "Entraîner un vrai MLP sur des données campus.",
+            "Entraîner un vrai LSTM sur consommation réelle.",
+            "Créer un vrai chatbot Seq2Seq ou Transformer.",
+            "Ajouter une application mobile.",
+            "Connecter la plateforme à une base de données.",
         ],
     ),
     (
         "Conclusion",
         [
-            "WasteSort AI applique le Deep Learning à un problème concret.",
-            "L'application est simple, visuelle et facile à présenter.",
-            "Le projet montre le lien entre IA et environnement.",
-            "Les résultats sont encourageants et améliorables avec plus de données.",
+            "WasteSort AI Suite regroupe plusieurs familles de modèles.",
+            "Chaque module illustre un type de donnée différent.",
+            "La plateforme est claire, visuelle et pédagogique.",
+            "Le projet est adapté à une présentation académique.",
         ],
     ),
 ]
@@ -185,7 +205,7 @@ def add_title(slide, title: str):
 def add_footer(slide):
     box = slide.shapes.add_textbox(Inches(0.7), Inches(6.95), Inches(11.8), Inches(0.25))
     p = box.text_frame.paragraphs[0]
-    p.text = "WasteSort AI - TensorFlow/Keras - MobileNetV2"
+    p.text = "WasteSort AI Suite - MLP - CNN/MobileNetV2 - LSTM - Seq2Seq"
     p.font.size = Pt(9)
     p.font.color.rgb = RGBColor(100, 116, 139)
     p.alignment = PP_ALIGN.RIGHT
@@ -235,6 +255,51 @@ def add_ppt_logo(slide, left, top, size):
     p.font.color.rgb = RGBColor(15, 81, 50)
 
 
+def add_emsi_badge(slide, left, top, width, height):
+    badge = slide.shapes.add_shape(
+        MSO_AUTO_SHAPE_TYPE.ROUNDED_RECTANGLE,
+        left,
+        top,
+        width,
+        height,
+    )
+    badge.fill.solid()
+    badge.fill.fore_color.rgb = RGBColor(255, 255, 255)
+    badge.line.color.rgb = RGBColor(15, 81, 50)
+    badge.line.width = Pt(2)
+
+    icon = slide.shapes.add_shape(
+        MSO_AUTO_SHAPE_TYPE.OVAL,
+        left + Inches(0.18),
+        top + Inches(0.14),
+        Inches(0.52),
+        Inches(0.52),
+    )
+    icon.fill.solid()
+    icon.fill.fore_color.rgb = RGBColor(15, 81, 50)
+    icon.line.color.rgb = RGBColor(15, 81, 50)
+
+    icon_text = slide.shapes.add_textbox(left + Inches(0.26), top + Inches(0.25), Inches(0.36), Inches(0.2))
+    p = icon_text.text_frame.paragraphs[0]
+    p.text = "E"
+    p.alignment = PP_ALIGN.CENTER
+    p.font.bold = True
+    p.font.size = Pt(14)
+    p.font.color.rgb = RGBColor(255, 255, 255)
+
+    text = slide.shapes.add_textbox(left + Inches(0.82), top + Inches(0.15), width - Inches(1.0), height - Inches(0.2))
+    tf = text.text_frame
+    p = tf.paragraphs[0]
+    p.text = "EMSI"
+    p.font.bold = True
+    p.font.size = Pt(22)
+    p.font.color.rgb = RGBColor(15, 81, 50)
+    p2 = tf.add_paragraph()
+    p2.text = "École Marocaine des Sciences de l'Ingénieur"
+    p2.font.size = Pt(9)
+    p2.font.color.rgb = RGBColor(71, 85, 105)
+
+
 def add_visual(slide, visual_path: Path, left, top, width):
     if visual_path.exists():
         picture = slide.shapes.add_picture(str(visual_path), left, top, width=width)
@@ -267,9 +332,29 @@ def build_pptx():
             for i, item in enumerate(bullets):
                 para = tf.paragraphs[0] if i == 0 else tf.add_paragraph()
                 para.text = item
-                para.font.size = Pt(22 if i == 0 else 18)
+                para.font.size = Pt(21 if i == 0 else 16)
                 para.font.color.rgb = RGBColor(51, 65, 85)
-                para.space_after = Pt(10)
+                para.space_after = Pt(7)
+
+            info_box = slide.shapes.add_textbox(Inches(0.8), Inches(4.35), Inches(5.7), Inches(1.45))
+            info_tf = info_box.text_frame
+            for i, (label, value) in enumerate(PROJECT_INFO.items()):
+                para = info_tf.paragraphs[0] if i == 0 else info_tf.add_paragraph()
+                para.text = f"{label} : {value}"
+                para.font.size = Pt(14)
+                para.font.color.rgb = RGBColor(15, 81, 50)
+                para.space_after = Pt(2)
+
+            if EMSI_LOGO.exists():
+                slide.shapes.add_picture(
+                    str(EMSI_LOGO),
+                    Inches(0.8),
+                    Inches(5.78),
+                    Inches(4.2),
+                    Inches(1.15),
+                )
+            else:
+                add_emsi_badge(slide, Inches(0.8), Inches(6.02), Inches(3.9), Inches(0.78))
 
             visual = VISUALS.get(index)
             if visual and visual.exists():
@@ -298,7 +383,7 @@ def build_pptx():
 
         add_footer(slide)
 
-    output = EXPORTS / "WasteSort_AI_Presentation_Images.pptx"
+    output = EXPORTS / "WasteSort_AI_Suite_Presentation.pptx"
     prs.save(output)
     return output
 
@@ -330,7 +415,7 @@ def markdown_blocks(path: Path):
 
 
 def build_pdf():
-    output = EXPORTS / "WasteSort_AI_Rapport.pdf"
+    output = EXPORTS / "WasteSort_AI_Suite_Rapport.pdf"
     doc = SimpleDocTemplate(
         str(output),
         pagesize=A4,
@@ -398,8 +483,28 @@ def build_pdf():
     )
 
     story = []
-    story.append(Paragraph("Rapport Professionnel - WasteSort AI", styles["DocTitle"]))
-    story.append(Paragraph("Projet de reconnaissance d'images pour l'aide au tri des déchets", styles["BodyTextClean"]))
+    story.append(Paragraph("Rapport Professionnel - WasteSort AI Suite", styles["DocTitle"]))
+    story.append(Paragraph("Plateforme IA multi-modèles pour le tri et l'écologie", styles["BodyTextClean"]))
+    story.append(Spacer(1, 0.25 * cm))
+
+    info_rows = [["Information", "Détail"]]
+    info_rows.extend([[label, value] for label, value in PROJECT_INFO.items()])
+    info_rows.append(["Technologies principales", "Python, TensorFlow/Keras, MobileNetV2, Streamlit"])
+    info_table = Table(info_rows, colWidths=[6 * cm, 9 * cm], hAlign="LEFT")
+    info_table.setStyle(
+        TableStyle(
+            [
+                ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#E8F5E9")),
+                ("TEXTCOLOR", (0, 0), (-1, 0), colors.HexColor("#0F5132")),
+                ("GRID", (0, 0), (-1, -1), 0.25, colors.HexColor("#CBD5E1")),
+                ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+                ("VALIGN", (0, 0), (-1, -1), "TOP"),
+                ("LEFTPADDING", (0, 0), (-1, -1), 6),
+                ("RIGHTPADDING", (0, 0), (-1, -1), 6),
+            ]
+        )
+    )
+    story.append(info_table)
     story.append(Spacer(1, 0.3 * cm))
 
     for block in markdown_blocks(REPORT):
@@ -418,6 +523,33 @@ def build_pdf():
                 alt_text, image_rel_path = match.groups()
                 image_path = ROOT / image_rel_path
                 if image_path.exists():
+                    if image_path.suffix.lower() == ".svg":
+                        badge = Table(
+                            [["EMSI", "École Marocaine des Sciences de l'Ingénieur"]],
+                            colWidths=[3 * cm, 12 * cm],
+                            hAlign="CENTER",
+                        )
+                        badge.setStyle(
+                            TableStyle(
+                                [
+                                    ("BACKGROUND", (0, 0), (0, 0), colors.HexColor("#0F5132")),
+                                    ("TEXTCOLOR", (0, 0), (0, 0), colors.white),
+                                    ("TEXTCOLOR", (1, 0), (1, 0), colors.HexColor("#0F5132")),
+                                    ("FONTNAME", (0, 0), (-1, -1), "Helvetica-Bold"),
+                                    ("FONTSIZE", (0, 0), (0, 0), 16),
+                                    ("FONTSIZE", (1, 0), (1, 0), 11),
+                                    ("GRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#0F5132")),
+                                    ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+                                    ("ALIGN", (0, 0), (-1, -1), "CENTER"),
+                                    ("TOPPADDING", (0, 0), (-1, -1), 10),
+                                    ("BOTTOMPADDING", (0, 0), (-1, -1), 10),
+                                ]
+                            )
+                        )
+                        story.append(Spacer(1, 0.15 * cm))
+                        story.append(badge)
+                        story.append(Paragraph(alt_text, styles["Caption"]))
+                        continue
                     story.append(Spacer(1, 0.15 * cm))
                     story.append(PdfImage(str(image_path), width=15.5 * cm, height=8.7 * cm))
                     story.append(Paragraph(alt_text, styles["Caption"]))
@@ -462,9 +594,8 @@ def build_pdf():
     story.append(Paragraph("Annexe - Résumé Pour Présentation", styles["DocTitle"]))
     story.append(
         Paragraph(
-            "WasteSort AI est une application web qui utilise MobileNetV2 avec TensorFlow/Keras "
-            "pour reconnaître six catégories de déchets à partir d'une photo. L'application affiche "
-            "la prédiction, la confiance, les probabilités par classe et un statut de fiabilité.",
+            "WasteSort AI Suite regroupe plusieurs familles de modèles : MLP pour les données tabulaires, "
+            "CNN/MobileNetV2 pour les images, LSTM pour les séries temporelles et Seq2Seq pour l'assistant de tri.",
             styles["BodyTextClean"],
         )
     )

@@ -21,6 +21,8 @@ images/*.png
 .DS_Store
 Thumbs.db
 ~$*.pptx
+~$*.pdf
+~$*.docx
 
 # Kaggle
 kaggle.json
