@@ -17,7 +17,16 @@ from reportlab.lib.enums import TA_CENTER, TA_LEFT
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import cm
-from reportlab.platypus import PageBreak, Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
+from reportlab.platypus import (
+    Image as PdfImage,
+    PageBreak,
+    Paragraph,
+    Preformatted,
+    SimpleDocTemplate,
+    Spacer,
+    Table,
+    TableStyle,
+)
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -302,8 +311,12 @@ def markdown_blocks(path: Path):
     for line in lines:
         if line.startswith("```"):
             in_code = not in_code
+            if in_code and buffer:
+                blocks.append("\n".join(buffer))
+                buffer = []
             continue
         if in_code:
+            buffer.append(line)
             continue
         if not line.strip():
             if buffer:
@@ -359,6 +372,30 @@ def build_pdf():
             spaceAfter=7,
         )
     )
+    styles.add(
+        ParagraphStyle(
+            name="Caption",
+            parent=styles["BodyText"],
+            fontSize=9,
+            leading=12,
+            textColor=colors.HexColor("#475569"),
+            alignment=TA_CENTER,
+            spaceAfter=10,
+        )
+    )
+    code_style = ParagraphStyle(
+        name="CodeBlock",
+        fontName="Courier",
+        fontSize=9,
+        leading=12,
+        leftIndent=12,
+        rightIndent=12,
+        textColor=colors.HexColor("#0F172A"),
+        backColor=colors.HexColor("#F1F5F9"),
+        borderPadding=8,
+        spaceBefore=6,
+        spaceAfter=10,
+    )
 
     story = []
     story.append(Paragraph("Rapport Professionnel - WasteSort AI", styles["DocTitle"]))
@@ -371,6 +408,22 @@ def build_pdf():
             continue
         if block.startswith("## "):
             story.append(Paragraph(block[3:], styles["SectionTitle"]))
+            continue
+        if block.startswith("### "):
+            story.append(Paragraph(block[4:], styles["Heading3"]))
+            continue
+        if block.startswith("!["):
+            match = re.match(r"!\[(.*?)\]\((.*?)\)", block)
+            if match:
+                alt_text, image_rel_path = match.groups()
+                image_path = ROOT / image_rel_path
+                if image_path.exists():
+                    story.append(Spacer(1, 0.15 * cm))
+                    story.append(PdfImage(str(image_path), width=15.5 * cm, height=8.7 * cm))
+                    story.append(Paragraph(alt_text, styles["Caption"]))
+            continue
+        if "↓" in block or block.startswith("Photo utilisateur") or block.startswith("Dataset Kaggle"):
+            story.append(Preformatted(block, code_style))
             continue
         if block.startswith("|"):
             rows = [row.strip("|").split("|") for row in block.splitlines() if row.startswith("|")]

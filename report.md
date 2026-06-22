@@ -8,6 +8,10 @@ Avec les progrès de l'intelligence artificielle, il devient possible d'utiliser
 
 Le projet combine plusieurs éléments : un modèle de Deep Learning, une interface web simple, un système de confiance, et une présentation visuelle adaptée à un public non technique. L'objectif n'est pas de remplacer totalement le jugement humain, mais de proposer une aide claire et rapide à la décision.
 
+![Illustration générale de WasteSort AI](assets/wastesort-slide-hero.png)
+
+**Figure 1 :** exemple d'utilisation de WasteSort AI. L'utilisateur prend une photo d'un déchet, puis l'application propose une catégorie de tri.
+
 ## 2. Problématique
 
 La problématique principale du projet est la suivante :
@@ -61,6 +65,10 @@ Dans le projet, le dataset a été utilisé pour l'entraînement et la validatio
 
 Le dataset est adapté à un projet de démonstration, mais il reste limité par rapport à une utilisation réelle. Dans la réalité, les photos peuvent être prises avec des angles différents, des fonds complexes, une mauvaise lumière ou plusieurs objets visibles en même temps.
 
+![Catégories de déchets reconnues](assets/wastesort-slide-categories.png)
+
+**Figure 2 :** représentation visuelle des six catégories reconnues par le système : carton, verre, métal, papier, plastique et déchet non recyclable.
+
 ## 5. Prétraitement Des Images
 
 Avant d'être données au modèle, les images doivent être préparées. Le prétraitement permet de rendre toutes les images compatibles avec l'architecture du modèle.
@@ -93,6 +101,24 @@ Pour améliorer les performances, le projet utilise ensuite une approche de **Tr
 
 Cette approche est plus performante qu'un CNN simple, car MobileNetV2 possède déjà une bonne capacité à reconnaître des formes, textures et objets visuels.
 
+### Diagramme De Fonctionnement
+
+```text
+Photo utilisateur
+       ↓
+Prétraitement de l'image
+       ↓
+MobileNetV2
+       ↓
+Calcul des probabilités
+       ↓
+Classe prédite + confiance
+       ↓
+Statut de fiabilité
+```
+
+Ce diagramme résume le fonctionnement général de l'application. L'image envoyée par l'utilisateur est d'abord préparée, puis analysée par le modèle. Le système calcule ensuite les probabilités pour chaque classe et affiche un résultat compréhensible.
+
 ## 7. Architecture Du Modèle
 
 Le modèle principal utilisé dans WasteSort AI est **MobileNetV2**.
@@ -112,6 +138,21 @@ L'architecture générale est la suivante :
 
 La couche Softmax produit une probabilité pour chaque classe. La classe avec la probabilité la plus élevée devient la prédiction proposée par l'application.
 
+![Schéma du modèle IA](assets/wastesort-slide-ai-model.png)
+
+**Figure 3 :** représentation simplifiée du modèle : une image entre dans le réseau de neurones, puis le modèle produit une prédiction parmi les classes disponibles.
+
+### Schéma Simplifié De L'Architecture
+
+| Étape | Rôle |
+| --- | --- |
+| Image 224 x 224 | Format d'entrée du modèle |
+| MobileNetV2 | Extraction des caractéristiques visuelles |
+| GlobalAveragePooling2D | Réduction des cartes de caractéristiques |
+| Dense + ReLU | Apprentissage des relations entre caractéristiques |
+| Dropout | Réduction du surapprentissage |
+| Softmax | Probabilités finales par classe |
+
 ## 8. Entraînement
 
 L'entraînement est réalisé avec TensorFlow et Keras.
@@ -129,6 +170,24 @@ L'entraînement se fait en deux phases.
 Dans la première phase, la base MobileNetV2 est gelée. Seules les nouvelles couches ajoutées à la fin du modèle sont entraînées. Cela permet au modèle d'apprendre rapidement à associer les caractéristiques visuelles aux classes de déchets.
 
 Dans la deuxième phase, certaines dernières couches de MobileNetV2 sont dégelées pour réaliser un fine-tuning. Cette étape permet d'adapter plus finement le modèle au dataset des déchets.
+
+### Diagramme D'Entraînement
+
+```text
+Dataset Kaggle
+       ↓
+Séparation entraînement / validation
+       ↓
+Data augmentation
+       ↓
+Phase 1 : entraînement de la tête du modèle
+       ↓
+Phase 2 : fine-tuning de MobileNetV2
+       ↓
+Évaluation finale
+```
+
+Cette organisation permet d'abord d'apprendre rapidement les nouvelles classes, puis d'ajuster progressivement une partie du modèle pré-entraîné pour améliorer les résultats.
 
 ## 9. Interface Utilisateur
 
@@ -153,6 +212,15 @@ Les statuts de fiabilité sont :
 
 Ce système permet d'éviter de présenter une prédiction comme certaine lorsque le modèle hésite. Si la confiance ou l'écart avec la deuxième classe est faible, l'application indique que la photo doit être vérifiée.
 
+### Parcours Utilisateur
+
+| Étape | Action utilisateur | Réponse de l'application |
+| --- | --- | --- |
+| 1 | Importer ou prendre une photo | L'image est affichée dans l'interface |
+| 2 | Attendre l'analyse | Le modèle calcule les probabilités |
+| 3 | Lire le résultat | La classe proposée et la confiance sont affichées |
+| 4 | Vérifier le statut | L'application indique si le résultat est fiable |
+
 ## 10. Résultats
 
 Le modèle MobileNetV2 atteint environ **81,5 % d'accuracy en validation**.
@@ -162,6 +230,17 @@ Ce résultat est satisfaisant pour un projet de démonstration. Il montre que le
 Les classes comme le carton, le verre et le métal sont généralement mieux reconnues. Les classes plus difficiles sont le plastique, le papier et les déchets non recyclables. Ces classes peuvent se ressembler selon la forme, la couleur ou la qualité de l'image.
 
 Le projet inclut également un mécanisme de prédiction renforcée. Au lieu d'analyser une seule version de l'image, l'application peut analyser plusieurs variantes légères de la même image, puis moyenner les résultats. Cela rend la prédiction plus stable face aux variations de cadrage et de luminosité.
+
+### Synthèse Des Résultats
+
+| Élément évalué | Résultat |
+| --- | --- |
+| Modèle principal | MobileNetV2 |
+| Méthode | Transfer Learning + fine-tuning |
+| Accuracy validation | Environ 81,5 % |
+| Classes généralement plus stables | Carton, verre, métal |
+| Classes plus difficiles | Plastique, papier, trash |
+| Sécurité ajoutée | Statut de fiabilité et prédiction renforcée |
 
 ## 11. Limites
 
