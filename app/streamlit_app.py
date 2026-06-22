@@ -54,7 +54,7 @@ def inject_css():
             padding-bottom: 3rem;
             max-width: 1180px;
         }
-        #MainMenu, footer, header, [data-testid="stToolbar"] {
+        #MainMenu, footer {
             visibility: hidden;
             height: 0;
         }
